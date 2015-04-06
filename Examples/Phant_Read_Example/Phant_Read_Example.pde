@@ -1,34 +1,20 @@
 Phant read;
-Phant write;
-Phant del;
 
 void setup()
 {
   read= new Phant();  //reading unknown public feed
-  write = new Phant();  //without delete feed option
-   
-  //for data.sparkfun.com "server" = "data.sparkfun.com"  
   
+   
+  //startFeed(Server, public key);  
   read.startFeed("data.sparkfun.com", "q58gwmpVaOfm0jw1z7DX");
-  write.startFeed("data.sparkfun.com","q58gwmpVaOfm0jw1z7DX","BVejmgn6G8fmWG9AkbKM");
-
-  write.postRate(10);   //set post rate timing is seconds
+  //set the read rate 
   read.getRate(10);      //set get rate timing in seconds
 }
 
 void draw()
 {
-  //concatenate data to the URL string
-  
-  write.addField("temperature", 12);  //name, data(int, byte, char, string)
-  write.addField("humidity", 2);
-  write.addField("light",32);
-  write.addField("pressure","HIGH");
-
-  //write.post();    //post data to feed
-  //write.clear();   //clear all previous data from the feed
-  //write.delete(boolean);  // pass either true or false to delete() to DELETE the feed
-
+  print(read.getJSON());  //getJSON() returns ***ALL*** data as a JSONArray
+  noLoop();
   //stats functions
   //println("page Count: "+read.pageCount());  //pageCount() returns number of pages  
   //println("bytes Used: "+read.bytesUsed());  //bytesUsed() returns number of bytes used
@@ -67,5 +53,3 @@ void keyPressed()
   //print(read.getJSONLatest());  //returns latest post from feed as a JSON object
   //print(read.getJSONLimit(5));  //return data with a limit of 5 posts
 }
-
-
